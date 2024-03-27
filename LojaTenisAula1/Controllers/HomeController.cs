@@ -1,4 +1,5 @@
 using LojaTenisAula1.Models;
+using LojaTenisAula1.Services.Tenis;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +7,18 @@ namespace LojaTenisAula1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ITenisInterface _tenisInterface;
+        public HomeController(ITenisInterface tenisInterface)
         {
-            _logger = logger;
+            _tenisInterface = tenisInterface;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var tenis = await _tenisInterface.BuscarTenis();
+            return View(tenis);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }

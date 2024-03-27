@@ -1,4 +1,5 @@
 using LojaTenisAula1.Data;
+using LojaTenisAula1.Services.Tenis;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 
+builder.Services.AddScoped<ITenisInterface, TenisService>();
 
 var app = builder.Build();
 

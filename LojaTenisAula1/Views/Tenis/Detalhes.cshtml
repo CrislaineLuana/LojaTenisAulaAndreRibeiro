@@ -1,0 +1,14 @@
+﻿@model TenisModel
+
+<div class="container d-flex  gap-5 justify-content-center align-items-center mt-5">
+    <div class="img">
+        <img src="/Imagem/@Model.Foto" style="width:400px; height:450px; border-radius:10px" />
+    </div>
+    <div class="text-center">
+        <h2 style="font-size:22px">@Model.Nome</h2>
+        <h3>@Model.Marca</h3>
+        <h1>R$ @Model.Valor</h1>
+        <a type="submit" class="btn btn-info w-50" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left-circle"></i> Voltar</a>
+    </div>
+
+</div>
