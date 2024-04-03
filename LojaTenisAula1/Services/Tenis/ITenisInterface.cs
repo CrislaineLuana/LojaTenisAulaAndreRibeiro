@@ -1,4 +1,5 @@
-﻿using LojaTenisAula1.Models;
+﻿using LojaTenisAula1.Dto.TenisDto;
+using LojaTenisAula1.Models;
 
 namespace LojaTenisAula1.Services.Tenis
 {
@@ -6,5 +7,6 @@ namespace LojaTenisAula1.Services.Tenis
     {
         Task<List<TenisModel>> BuscarTenis();
         Task<TenisModel> BuscarTenisPorId(int? id);
+        Task<TenisModel> Cadastrar(CriarTenisDto criarTenisDto, IFormFile foto);
     }
 }

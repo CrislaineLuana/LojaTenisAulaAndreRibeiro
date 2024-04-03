@@ -1,4 +1,5 @@
-﻿using LojaTenisAula1.Services.Tenis;
+﻿using LojaTenisAula1.Dto.TenisDto;
+using LojaTenisAula1.Services.Tenis;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaTenisAula1.Controllers
@@ -29,5 +30,30 @@ namespace LojaTenisAula1.Controllers
             return RedirectToAction("Index");
             
         }
+
+
+        public IActionResult Cadastrar()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Cadastrar(CriarTenisDto criarTenisDto, IFormFile foto)
+        {
+            if (ModelState.IsValid)
+            {
+                var tenis = await _tenisInterface.Cadastrar(criarTenisDto, foto);
+                return RedirectToAction("Index", "Tenis");
+            }
+            else
+            {
+                return View(criarTenisDto);
+            }
+
+
+        }
+
     }
 }
