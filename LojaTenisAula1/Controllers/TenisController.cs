@@ -1,4 +1,5 @@
 ﻿using LojaTenisAula1.Dto.TenisDto;
+using LojaTenisAula1.Models;
 using LojaTenisAula1.Services.Tenis;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,18 @@ namespace LojaTenisAula1.Controllers
         }
 
 
+        public async Task<IActionResult> Editar(int? id)
+        {
+            if(id == null) {
+                return RedirectToAction("Index");
+            }
+
+            var tenis = await _tenisInterface.BuscarTenisPorId(id);
+
+            return View(tenis);
+
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Cadastrar(CriarTenisDto criarTenisDto, IFormFile foto)
@@ -45,15 +58,36 @@ namespace LojaTenisAula1.Controllers
             if (ModelState.IsValid)
             {
                 var tenis = await _tenisInterface.Cadastrar(criarTenisDto, foto);
+
+                TempData["MensagemSucesso"] = "Tenis cadastrado com sucesso!";
+
                 return RedirectToAction("Index", "Tenis");
             }
             else
             {
+                TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar o tenis!";
                 return View(criarTenisDto);
             }
 
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(TenisModel tenisModel, IFormFile? foto)
+        {
+            if (ModelState.IsValid)
+            {
+                var tenis = await _tenisInterface.Editar(tenisModel, foto);
+                TempData["MensagemSucesso"] = "Tenis editado com sucesso!";
+                return RedirectToAction("Index", "Tenis");
+            }
+            else
+            {
+                TempData["MensagemErro"] = "Ocorreu um erro ao editar o tenis!";
+                return View(tenisModel);
+            }
+        }
+
 
     }
 }

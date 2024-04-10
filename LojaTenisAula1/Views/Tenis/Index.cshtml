@@ -1,5 +1,22 @@
 ﻿@model IEnumerable<TenisModel>
 
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+
+
  <div class="container mt-5">
 
     <div class="btn-box d-flex justify-content-between align-items-center mb-3">
@@ -7,7 +24,7 @@
         <a class="btn btn-success" asp-action="Cadastrar" asp-controller="Tenis"><i class="bi bi-plus-circle"></i>  Cadastrar novo tênis</a>
     </div>
 
-    <table class="table table-hover" id="registros">
+    <table class="table table-hover" id="registros" style="width: 1024;">
         <thead>
             <tr>
                 <th></th>

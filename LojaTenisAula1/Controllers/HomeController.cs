@@ -13,10 +13,19 @@ namespace LojaTenisAula1.Controllers
             _tenisInterface = tenisInterface;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? pesquisar)
         {
-            var tenis = await _tenisInterface.BuscarTenis();
-            return View(tenis);
+            if(pesquisar == null)
+            {
+                var tenis = await _tenisInterface.BuscarTenis();
+                return View(tenis);
+            }
+            else
+            {
+                var tenis = await _tenisInterface.BuscarTenisFiltro(pesquisar);
+                return View(tenis);
+            }
+            
         }
 
         
